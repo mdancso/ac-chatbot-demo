@@ -94,9 +94,9 @@ with st.sidebar:
             emp = st.sidebar.empty()
             col1, col2 = emp.columns([1, 1])
             col1.markdown(doc_id)
-            if col2.button("Del", key=f"but{index}"):
-                vector_db.delete_file_from_db(doc_id)
-                st.rerun()
+            #if col2.button("Del", key=f"but{index}"):
+            #    vector_db.delete_file_from_db(doc_id)
+            #    st.rerun()
 
 st.sidebar.divider()
 
