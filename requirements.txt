@@ -1,0 +1,14 @@
+dataclasses-json==0.5.13
+faiss-cpu==1.7.4
+langchain==0.2.3
+langchain-core==0.2.5
+langchain-openai==0.1.8
+langgraph==0.0.65
+langsmith==0.1.75
+langchain-community==0.2.4
+openai==1.32.0
+openapi-schema-pydantic==1.2.4
+pypdf==4.0.2
+PyPDF2==3.0.1
+streamlit==1.35.0
+streamlit-feedback==0.1.3
