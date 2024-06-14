@@ -13,6 +13,9 @@ from models.util.retrieval_grader import get_retriever_grader
 from models.util.archicad_agent import get_archicad_functions_agent
 
 class AgentWithFallback(RAGChatModel):
+    name = "Selective Agent"
+    info = "This chatbot model evaluates the relevance of each retrieved document individually, ensuring that only the most pertinent information is used to generate responses, improving accuracy and detail."
+
     class ModelState(TypedDict):
         # Original question
         question: str

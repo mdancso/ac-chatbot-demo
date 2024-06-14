@@ -10,6 +10,9 @@ from models.model_base import RAGChatModel
 from models.util.data_models import ToolCall, LLMAnswer, Document, RAGResult
 
 class DocumentQaRAG(RAGChatModel):
+    name = "Context-Aware Retriever"
+    info = """This chatbot maintains conversational context and reformulates user queries to accurately retrieve information from a database, ensuring responses are relevant and informative."""
+
     def __init__(self, retriever, model="gpt-3.5-turbo"):
         def format_docs(docs):
             """Default way to format documents for prompt injection."""

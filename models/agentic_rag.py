@@ -19,6 +19,9 @@ from models.model_base import RAGChatModel
 from models.util.data_models import ToolCall, LLMAnswer, Document, RAGResult
 
 class AgenticRAG(RAGChatModel):
+    name = "Smart Query Agent"
+    info = "This variant uses an intelligent AI agent to dynamically decide when to retrieve information and autonomously generate tailored queries, enhancing adaptability and efficiency in conversations."
+
     class AgentState(TypedDict):
         # The input string
         input: str

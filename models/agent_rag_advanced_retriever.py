@@ -14,6 +14,9 @@ from models.util.archicad_agent import get_archicad_functions_agent
 from models.util.retriever_with_self_reflection import get_retriever_with_self_reflection
 
 class AgentRAGWithSelfReflectRetrieval(RAGChatModel):
+    name = "Reflective Agent"
+    info = "By integrating self-reflection mechanisms, this model checks the relevance of retrieved documents and the generated answers, aiming to minimize irrelevant context and hallucinations for more accurate responses."
+
     class AgentState(TypedDict):
         # The input string
         question: str

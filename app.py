@@ -31,7 +31,7 @@ if 'initialized' not in st.session_state:
         AgenticRAG,
         AgentRAGWithSelfReflectRetrieval
     ]
-    st.session_state.models = {bot.__name__: bot for bot in models}
+    st.session_state.models = {bot.name: bot for bot in models}
 
 # Sidebar
 
@@ -78,7 +78,7 @@ st.sidebar.title("Database")
 ### File Uploader
 with st.sidebar.form("my-form", clear_on_submit=True):
     files = st.file_uploader("upload files", type="pdf", accept_multiple_files=True, label_visibility="collapsed")
-    if st.form_submit_button("Upload"):
+    if st.form_submit_button("Upload", disabled=True, help="Not yet available in cloud version."):
         if 'files' not in st.session_state:
             st.session_state.files = []
         with st.spinner(text='Uploading...'):
@@ -94,9 +94,9 @@ with st.sidebar:
             emp = st.sidebar.empty()
             col1, col2 = emp.columns([1, 1])
             col1.markdown(doc_id)
-            #if col2.button("Del", key=f"but{index}"):
-            #    vector_db.delete_file_from_db(doc_id)
-            #    st.rerun()
+            if col2.button("Del", key=f"but{index}", disabled=True, help="Not yet available in cloud version."):
+               vector_db.delete_file_from_db(doc_id)
+               st.rerun()
 
 st.sidebar.divider()
 
@@ -113,8 +113,7 @@ if st.sidebar.button("Show History"):
     chat_history()
 
 # Main Content
-
-st.title(selected_model_name)
+st.markdown(f"# {st.session_state.chat_model.name}", help=st.session_state.chat_model.info)
 
 ## Message history
 for msg in memory.loop_messages():
