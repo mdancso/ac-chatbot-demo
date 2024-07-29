@@ -1,6 +1,7 @@
 import uuid
 import asyncio
 import streamlit as st
+from dotenv import load_dotenv
 
 from models.util.memory import cache_memory
 from models.document_qa_rag import DocumentQaRAG
@@ -9,9 +10,11 @@ from models.agent_with_fallback import AgentWithFallback
 from models.agentic_rag import AgenticRAG
 
 from database import load_db
+from models.util.llms import PossibleModels
 from util import display_tool_calls, display_ai_message, display_user_message, display_streaming_content
 
 # Init code
+load_dotenv()
 
 # Both of these calls are cached
 vector_db = load_db()
@@ -23,13 +26,12 @@ if 'initialized' not in st.session_state:
     st.session_state.selected_model_name = None
     st.session_state.how_many_docs_to_retrieve = 8
     st.session_state.chat_model = None
-    st.session_state.choose_llm = "gpt-3.5-turbo"
+    st.session_state.possible_llms = PossibleModels.__args__
+    st.session_state.choosen_llm = st.session_state.possible_llms[0]
 
     models = [
         DocumentQaRAG,
         AgentWithFallback,
-        AgenticRAG,
-        AgentRAGWithSelfReflectRetrieval
     ]
     st.session_state.models = {bot.name: bot for bot in models}
 
@@ -47,11 +49,10 @@ selected_model_name = st.sidebar.selectbox(
 )
 
 choosen_llm = st.sidebar.radio(
-    "Select which ",
-    key="choose_llm",
-    options=["gpt-3.5-turbo", "gpt-4o"],
+    "Select which llm to use",
+    key="choosen_llm_radio_btn",
+    options=st.session_state.possible_llms,
 )
-
 
 how_many_docs_to_retrieve = st.sidebar.slider("How many documents should I retrieve per question?", 1, 10, st.session_state.how_many_docs_to_retrieve)
 

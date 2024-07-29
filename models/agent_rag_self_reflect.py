@@ -26,7 +26,7 @@ class SelfReflectAgentRAG(RAGChatModel):
         # Retrieved documents
         documents : List[LangChainDocument]
 
-    def __init__(self, retriever, model="gpt-3.5-turbo", secondary_model="gpt-3.5-turbo", **kwargs):
+    def __init__(self, retriever, model="gpt-4o-mini", secondary_model="gpt-4o-mini", **kwargs):
         # lego pieces
         front_end_agent = get_archicad_tools_agent(model)
         retriever_with_self_reflection = get_retriever_with_self_reflection(retriever, secondary_model)

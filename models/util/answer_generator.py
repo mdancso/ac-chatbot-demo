@@ -1,12 +1,10 @@
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai.chat_models import ChatOpenAI
 
 from models.util.prompts import Prompts
+from models.util.llms import ChatModels, PossibleModels
 
-def get_answer_generator(model):
+def get_answer_generator(model: PossibleModels):
     # Prompt
     generation_system_prompt = Prompts.ARCHICAD_ANSWER_GEN_PROMPT + "\n\nContext:\n{context}"
     generation_prompt = ChatPromptTemplate.from_messages(
@@ -21,7 +19,7 @@ def get_answer_generator(model):
     # prompt = hub.pull("rlm/rag-prompt")
 
     # LLM
-    generation_llm = ChatOpenAI(model=model, temperature=0)
+    generation_llm = ChatModels.get(model)
 
     # Chain
     return generation_prompt | generation_llm | StrOutputParser()

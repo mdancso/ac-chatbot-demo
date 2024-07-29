@@ -1,10 +1,9 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai.chat_models import ChatOpenAI
 
-def get_hallucination_grader(model):
+from models.util.llms import ChatModels, PossibleModels
+
+def get_hallucination_grader(model: PossibleModels):
     # Data model
     class GradeHallucinations(BaseModel):
         """Binary score for hallucination present in generation answer."""
@@ -12,7 +11,7 @@ def get_hallucination_grader(model):
         binary_score: str = Field(description="Answer is grounded in the facts, 'yes' or 'no'")
 
     # LLM with function call 
-    hallucination_grader_llm = ChatOpenAI(model=model, temperature=0)
+    hallucination_grader_llm = ChatModels.get(model)
     structured_hallucination_grader_llm = hallucination_grader_llm.with_structured_output(GradeHallucinations)
 
     # Prompt 

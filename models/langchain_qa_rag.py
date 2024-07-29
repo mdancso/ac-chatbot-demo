@@ -10,7 +10,7 @@ from models.model_base import RAGChatModel
 from models.util.data_models import ToolCall, LLMAnswer, Document, RAGResult
 
 class LangChainDocumentQaRAG(RAGChatModel):
-    def __init__(self, retriever, model: str="gpt-3.5-turbo"):
+    def __init__(self, retriever, model: str="gpt-4o-mini"):
         qa = ConvRetrievalChain.from_llm(
             ChatOpenAI(model_name=model, streaming=True, temperature = 0),
             retriever=retriever,

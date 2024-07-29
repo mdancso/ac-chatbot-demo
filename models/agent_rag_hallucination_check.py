@@ -25,7 +25,7 @@ class AgentRAGWithHallucinationCheck(RAGChatModel):
         # Retrieved documents
         documents : List[LangChainDocument]
 
-    def __init__(self, retriever, model="gpt-3.5-turbo", secondary_model="gpt-3.5-turbo", **kwargs):
+    def __init__(self, retriever, model="gpt-4o-mini", secondary_model="gpt-4o-mini", **kwargs):
         # Setup node
         def setup_node(state):
             question = state.get("question")

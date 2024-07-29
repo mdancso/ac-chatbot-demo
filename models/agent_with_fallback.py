@@ -41,7 +41,7 @@ class AgentWithFallback(RAGChatModel):
         # List of Tool call actions with their results
         intermediate_steps: Annotated[list[tuple[AgentAction, list]], operator.add]
 
-    def __init__(self, retriever, model="gpt-3.5-turbo", secondary_model="gpt-3.5-turbo", **kwargs):
+    def __init__(self, retriever, model="gpt-4o-mini", secondary_model="gpt-4o-mini", **kwargs):
         # lego pieces
         front_end_agent = get_archicad_functions_agent(model)
         retrieval_grader = get_retriever_grader(secondary_model)

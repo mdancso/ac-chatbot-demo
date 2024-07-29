@@ -1,15 +1,16 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_openai import ChatOpenAI
 
-def get_retriever_grader(model):
+from models.util.llms import ChatModels, PossibleModels
+
+def get_retriever_grader(model: PossibleModels):
     # Data model
     class GradeDocuments(BaseModel):
         """Binary score for relevance check on retrieved documents."""
         relevant: bool = Field(description="Documents are relevant to the question, True or False")
 
     # LLM with function call 
-    grader_llm = ChatOpenAI(model=model, temperature=0)
+    grader_llm = ChatModels.get(model)
     structured_llm_grader = grader_llm.with_structured_output(GradeDocuments)
 
     # Prompt 

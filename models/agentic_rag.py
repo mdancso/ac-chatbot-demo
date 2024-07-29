@@ -35,7 +35,7 @@ class AgenticRAG(RAGChatModel):
         # this state should be ADDED to the existing values (not overwrite it)
         intermediate_steps: Annotated[list[tuple[AgentAction, list]], operator.add]
 
-    def __init__(self, retriever, model="gpt-3.5-turbo"):
+    def __init__(self, retriever, model="gpt-4o-mini"):
         # Define tools node
         @tool
         def archicad_retriever_tool(query: str) -> list:

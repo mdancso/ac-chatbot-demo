@@ -1,10 +1,9 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
-from langchain_openai import ChatOpenAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai.chat_models import ChatOpenAI
 
-def get_answer_grader(model):
+from models.util.llms import ChatModels, PossibleModels
+
+def get_answer_grader(model: PossibleModels):
     # Data model
     class GradeAnswer(BaseModel):
         """Binary score to assess answer addresses question."""
@@ -12,7 +11,7 @@ def get_answer_grader(model):
         binary_score: str = Field(description="Answer addresses the question, 'yes' or 'no'")
 
     # LLM with function call 
-    answer_grader_llm = ChatOpenAI(model=model, temperature=0)
+    answer_grader_llm = ChatModels.get(model)
     structured_answer_grader_llm = answer_grader_llm.with_structured_output(GradeAnswer)
 
     # Prompt 

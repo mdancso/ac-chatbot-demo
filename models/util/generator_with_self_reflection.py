@@ -3,9 +3,9 @@ from langgraph.graph import END, StateGraph
 from langchain.schema import Document as LangChainDocument
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 
+from models.util.answer_grader import get_answer_grader
 from models.util.answer_generator import get_answer_generator
 from models.util.hallucination_grader import get_hallucination_grader
-from models.util.answer_grader import get_answer_grader
 
 def get_generator_with_self_reflection(model, secondary_model):
     generation_chain = get_answer_generator(model)
