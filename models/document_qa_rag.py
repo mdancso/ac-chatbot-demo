@@ -1,4 +1,3 @@
-from langchain_openai import ChatOpenAI
 from typing import AsyncGenerator, Union
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
@@ -7,19 +6,20 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from models.util.prompts import Prompts
 from models.util.memory import ChatMemory
 from models.model_base import RAGChatModel
+from models.util.llms import ChatModels, PossibleModels
 from models.util.data_models import ToolCall, LLMAnswer, Document, RAGResult
 
 class DocumentQaRAG(RAGChatModel):
     name = "Context-Aware Retriever"
     info = """This chatbot maintains conversational context and reformulates user queries to accurately retrieve information from a database, ensuring responses are relevant and informative."""
 
-    def __init__(self, retriever, model="gpt-4o-mini"):
+    def __init__(self, retriever, model: PossibleModels ="gpt-4o-mini"):
         def format_docs(docs):
             """Default way to format documents for prompt injection."""
             return "\n\n".join(doc.page_content for doc in docs)
 
         # Set model for all LLM calls
-        llm = ChatOpenAI(model_name=model, temperature=0)
+        llm = ChatModels.get(model)
 
         # Contextualize Question
         contextualize_q_system_prompt = """Given a chat history and the latest user question \
