@@ -26,7 +26,7 @@ There are 3 ways you can run the chatbot locally.
 1. Install python. The code was tested using [this version](https://www.python.org/downloads/release/python-3913/).
 2. Install dependecies. Optionally create a virtual environment.
     ```
-    pip install -r requirements.py
+    pip install -r requirements.txt
     ```
 3. Run the app and enjoy:)
     ```
