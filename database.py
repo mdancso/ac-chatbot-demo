@@ -9,7 +9,7 @@ from langchain_openai import OpenAIEmbeddings
 
 @st.cache_resource
 def load_db():
-    return VectorDB("archicad_db")
+    return VectorDB("ac_devkit_db")
 
 class VectorDB:
     def __init__(self, db_name: str):
